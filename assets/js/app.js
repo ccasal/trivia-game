@@ -7,7 +7,7 @@ function frontPage(){
 	setInterval(function(){ 
 		$('#clickToStart').css("display","inline-block");
 
-	}, 50)//make this 3000
+	}, 3000)
 		
 	$('#clickToStart').on('click',function(){
 	clickedStart();
@@ -31,6 +31,7 @@ function clickedStart(){
 }
 function createQuestion(questionNumber){
 		$('#question').text(questionAnswerObj[questionNumber].question);
+		$('#imageHolder').attr('src', questionAnswerObj[questionNumber].questionImage);
 		$('#answer1').text(questionAnswerObj[questionNumber].answers[0]);
 		$('#answer2').text(questionAnswerObj[questionNumber].answers[1]);
 		$('#answer3').text(questionAnswerObj[questionNumber].answers[2]);	
@@ -54,6 +55,11 @@ function createTemplate(){
 	questionRow.attr('id','questionRow');
 	questionRow.addClass('jumbotron');
 	$('#fullSiteContainer').append(questionRow);
+
+	var image = $('<img>');
+	image.attr('id', 'imageHolder');
+	image.addClass('imageClass')
+	$('#fullSiteContainer').append(image);
 
 	var question = createSpan();
 	question.attr('id', 'question');
@@ -108,6 +114,7 @@ function newQuestion(){
 	}
 
 	$('#questionRow').show();
+	$('#imageHolder').show();
 	$('#answerRow').show();
 
 	if(questionCount != (questionAnswerObj.length - 1)){
@@ -121,7 +128,7 @@ function newQuestion(){
 		$('#answerRow').remove();	
 		$('#responseDiv1').remove();
 		$('#responseDiv2').empty();
-
+		$('#imageHolder').attr('src', 'assets/images/peter-on-can.jpg');
 		var finalResultToUser;
 		if(results.correctAnswers > results.wrongAnswers)
 			finalResultToUser = 'YOU WIN!';
@@ -137,10 +144,10 @@ function newQuestion(){
 		$('#responseDiv2').show();
 		$('#responseDiv3').show();
 	}
-	//else create end summary screen
 }
 function createBtwQuestScreen(userPick, correctPick){
 	$('#questionRow').hide();
+	$('#imageHolder').hide();
 	$('#answerRow').hide();
 	var addBreak = $('<br><br>');
 
@@ -153,11 +160,18 @@ function createBtwQuestScreen(userPick, correctPick){
 		$('#fullSiteContainer').append(responseDiv);
 	}
 
+	var imageAnsHolder = $('<img>');
+	imageAnsHolder.attr('id', 'imageAnsHolder');
+	imageAnsHolder.attr('src', questionAnswerObj[questionCount].answerImage);
+	imageAnsHolder.addClass('imageClass')
+	$('#responseDiv1').append(imageAnsHolder);
+
 	var timerBoxAnsCheck = createSpan();
 	timerBoxAnsCheck.attr('id', 'timerBoxAnsCheck');
 	timerBoxAnsCheck.addClass('timer overallSiteText');
 	timerBoxAnsCheck.text(answerTimer.time);
 	$('#responseDiv1').append(timerBoxAnsCheck);
+	
 	//create user and correct choice
 
 	var userPickSpan = createSpan();
@@ -195,39 +209,49 @@ function createBtwQuestScreen(userPick, correctPick){
 		for(i = 0; i < 3; i++){
 			$('#responseDiv' + (i + 1)).show();
 		}
+		$('#imageAnsHolder').attr('src', questionAnswerObj[questionCount].answerImage);
 		$('#userPick').text('You picked: ' + userPick);
 		$('#correctPick').text('Right Answer: ' + correctPick);
 		$('#userRightSpan').text('Correct: ' + results.correctAnswers);
 		$('#userWrongSpan').text('Incorrect: ' + results.wrongAnswers);
 	}
 	answerTimer.runTime();
-	//insert user picks
 }
 //questions object
 var questionAnswerObj = [{
 	question: 'Who\'s this\? ',
 	answers: ['Who cares\?', 'Ewwwwwww', 'Gross', 'Shut up, Meg'],
-	correctAnswer: 'Shut up, Meg'
+	correctAnswer: 'Shut up, Meg',
+	questionImage: 'assets/images/meg.jpg',
+	answerImage: 'assets/images/shutupmeg.jpeg'
 },
 {
 	question: 'Who is Stewie\'s best friend\?',
 	answers: ['Meg','Lois','Chris', 'Rupert'],
-	correctAnswer: 'Rupert'
+	correctAnswer: 'Rupert',
+	questionImage: 'assets/images/stewie.gif',
+	answerImage: 'assets/images/stewie-rupert.jpg'
 },
 {
-	question: 'The Griffin\'s live on which street\?',
+	question: 'The Griffins live on which street\?',
 	answers: ['Broadway','Spooner','Evergreen', 'Quahog'],
-	correctAnswer: 'Spooner'
+	correctAnswer: 'Spooner',
+	questionImage: 'assets/images/house.jpg',
+	answerImage: 'assets/images/spooner.jpg'
 },
 {
 	question: 'What does Quagmire do for a living\?',
 	answers: ['Pilot','Garbage Man','Banker', 'Women'],
-	correctAnswer: 'Pilot'
+	correctAnswer: 'Pilot',
+	questionImage: 'assets/images/quagmire.png',
+	answerImage: 'assets/images/qpilot.jpg'
 },
 {
 	question: 'How long has Bonnie been pregnant\?',
 	answers: ['4 months','1 month','8 months', 'The whole freakin\' show!'],
-	correctAnswer: 'The whole freakin\' show!'
+	correctAnswer: 'The whole freakin\' show!',
+	questionImage: 'assets/images/Bonny.png',
+	answerImage: 'assets/images/Bonny.png'
 }
 ];
 var results = {
@@ -235,10 +259,10 @@ var results = {
 	wrongAnswers: 0
 }
 var questionTimer = {
-	time: 6,
+	time: 30,
 
 	resetTime: function(){
-		questionTimer.time = 6;
+		questionTimer.time = 30;
 		$('#timerBox').html(questionTimer.time);
 	},
 	checkTime: function(){

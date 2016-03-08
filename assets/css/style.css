@@ -56,3 +56,6 @@ body{
 #correctPick{
 	float: right;
 }
+.imageClass{
+	max-width: 250px;
+}
