@@ -1,0 +1,58 @@
+/*family guy blue is #00A0D4*/
+body{
+	background: yellow;
+	text-align: center;
+}
+#familyGuyLogo{
+	width: 100%;
+}
+#mainContent{
+	background: yellow;
+}
+@font-face{
+	font-family: familyGuyBubble;
+	src: url(famig.ttf);
+}
+.familyGuyText{
+	font-family: familyGuyBubble;
+	color: #00A0D4;
+	text-shadow: -12px 6px black;
+	font-size: 92pt;
+}
+.stroke {
+ color: #00A0D4; /* text color */
+ -webkit-text-stroke: 1px black; /* stroke color and weight */
+}
+#clickToStart{
+	display: none;
+	font-size: 30pt;
+	font-weight: bolder;
+	margin-top: 15px;
+    padding: 20px;
+}
+#questionRow{
+	background: yellow;
+}
+.overallSiteText{
+	font-size: 14pt;
+	font-family: montserrat;
+	padding: 15px;
+	margin: 15px;
+}
+.answerContainerRow{
+	margin: 15px 0px 15px 0px;
+}
+.timer{
+	float: right;
+	font-size: 16pt;
+}
+#answerContainer{
+	clear: both;
+
+}
+#userPick{
+	float: left;
+}
+#correctPick{
+	float: right;
+}
